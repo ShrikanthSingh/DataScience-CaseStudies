@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  metrodigital-task-main-image:
+    build: .
+    image: metrodigital-task
+
+  train-model:
+    image: metrodigital-task 
+    depends_on:
+      - metrodigital-task-main-image
+    command: python src/train.py
+      --input-train-csv /home/project/data/take_home_final_data.csv
+      --output-model /home/project/model/model.joblib
+      --output-test-pred /home/project/data/test_predictions.csv
+    volumes:
+       - .:/home/project
+
+
+
+  notebook:
+      image: metrodigital-task
+      depends_on:
+        - metrodigital-task-main-image
+      command: jupyter notebook
+        --notebook-dir=/home/project/notebooks
+        --ip 0.0.0.0
+        --no-browser
+        --allow-root
+        --port 8989
+      ports:
+        - "8989:8989"
+      volumes:
+        - .:/home/project

@@ -1,0 +1,7 @@
+numpy==1.23.1
+pandas==1.4.3
+seaborn==0.11.2
+minepy==1.2.6
+scikit-learn==1.1.1
+xgboost==1.6.1
+hyperopt==0.2.7
