@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  sixt-task-main-image:
+    build: .
+    image: sixt-datascience
+
+  notebook:
+      image: sixt-datascience
+      depends_on:
+        - sixt-task-main-image
+      command: jupyter notebook
+        --notebook-dir=/home/project
+        --ip 0.0.0.0
+        --no-browser
+        --allow-root
+        --port 8989
+      ports:
+        - "8989:8989"
+      volumes:
+        - .:/home/project
